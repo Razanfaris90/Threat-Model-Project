@@ -1,0 +1,2728 @@
+{
+  "version": "2.2.0",
+  "summary": {
+    "title": "Threat Model Project",
+    "owner": "Razan Faris,Wafaa Alawadhi,Retaj Baaqeel,Ruba Alotabi",
+    "description": "The system represents a document delivery and management workflow within a trust boundary. It involves interactions between external entities (like Print Services, Banking, Email Providers, and PDS Users) and internal processes such as scheduling, document generation, and personal data storage. Key components include:\n\n • P2 Delivery: Manages the flow of documents and communication with external services.\n • P1 Scheduler: Coordinates tasks and communicates with other internal processes.\n • P3 PDS: Stores user data and documents.\n • P4 Document Generator: Creates documents for further processing.\n\nData flows indicate how information moves between these processes and external entities, ensuring delivery, scheduling, and storage of documents and user data.\n",
+    "id": 0
+  },
+  "detail": {
+    "contributors": [],
+    "diagrams": [
+      {
+        "id": 0,
+        "title": "New STRIDE diagram",
+        "diagramType": "STRIDE",
+        "placeholder": "New STRIDE diagram description",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "version": "2.2.0",
+        "cells": [
+          {
+            "position": {
+              "x": 9.999999999994543,
+              "y": 70
+            },
+            "size": {
+              "width": 940,
+              "height": 540
+            },
+            "shape": "trust-boundary-box",
+            "zIndex": -1,
+            "id": "97a476d7-6fe5-417d-b551-b0300ed83290",
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "Trust Boundary",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 270,
+              "y": 360
+            },
+            "size": {
+              "width": 100,
+              "height": 100
+            },
+            "attrs": {
+              "text": {
+                "text": "P2 \nDelivery"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 1,
+            "id": "e721eaf6-4e0a-40cc-bc66-b596d2710e4e",
+            "data": {
+              "type": "tm.Process",
+              "name": "P2 \nDelivery",
+              "description": "The delivery process is responsible for handling data transfer between di erent elements in the system. It manages the routing and delivery of data to various endpoints, ensuring data reaches \nthe correct location.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": [
+                {
+                  "id": "8e2327e2-357e-412a-b3c5-08d3305e0e7b",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "A threat actor could impersonate the delivery to execute unauthorized actions or modify delivery processes, leading to potential delays, data exposure, or unauthorized access to sensitive information in transit.",
+                  "mitigation": "Implement SSL/TLS and PKI for secure data encryption and authentication during data transit.\nStrengthen Access Control using MFA and session management to prevent unauthorized access and session hijacking.\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 23,
+                  "score": "7"
+                },
+                {
+                  "id": "711fa586-68ed-4127-9ac1-78c4e7659c9f",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Tampering",
+                  "description": "A threat actor could intercept and alter data during the delivery process, leading to the delivery of incorrect information, modified document content, or insertion of malicious data.",
+                  "mitigation": "Implement SSL/TLS and PKI for secure data encryption and authentication during data transit.\nStrengthen Access Control using MFA and session management to prevent unauthorized access and session hijacking.\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 24,
+                  "score": "6"
+                },
+                {
+                  "id": "99cea5c9-a6f2-44c5-9b92-fa7715499788",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "Sensitive data may be exposed or accessed by unauthorized individuals during the delivery process due to intercepted transmissions, insufficient access controls, or inadequate data handling practices.",
+                  "mitigation": "Encrypt Data and Apply DLP to monitor for unauthorized sharing.\nUse Secure Transmission Channels for safer data handling.\nApply Data Masking to protect sensitive information.\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 25,
+                  "score": "8"
+                },
+                {
+                  "id": "8775b4b5-85fa-4dfd-82eb-409ecdd94bde",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Denial of service",
+                  "description": "Overwhelming the P2 Delivery component with a flood of requests, which disrupts document delivery. This attack could be executed by using automated scripts or botnets that send a high volume of requests to the delivery system, eventually causing it to become",
+                  "mitigation": "Implement rate limiting on the delivery system to control the number of requests from each user or IP address.\nUse web application firewalls (WAF) to filter and monitor incoming traffic for unusual patterns.\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 61,
+                  "score": "7"
+                },
+                {
+                  "id": "74606c4b-700e-4717-b5c4-48d717b69ee2",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Elevation of privilege",
+                  "description": "Privilege Escalation in the P2 Delivery System. An attacker could exploit vulnerabilities in the delivery system to gain unauthorized access or manipulate delivery processes, potentially by injecting malicious code.",
+                  "mitigation": "Implement input validation and sanitization to prevent malicious code injection.\nMonitor and log access attempts to detect and respond to unauthorized activities.\nUse multi-factor authentication (MFA) for access to sensitive components within the delivery system.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 65,
+                  "score": "7"
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "x": 390,
+              "y": 130
+            },
+            "size": {
+              "width": 130,
+              "height": 100
+            },
+            "attrs": {
+              "text": {
+                "text": "P1\nScheduler"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 2,
+            "id": "6aad014f-968d-4949-afa1-1f04bc8bef2a",
+            "data": {
+              "type": "tm.Process",
+              "name": "P1\nScheduler",
+              "description": "The scheduler orchestrates tasks, managing timing and sequence for processes within the system. It’s responsible for scheduling operations and sending commands to other processes to initiate \nactivities.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": [
+                {
+                  "id": "4514ac5f-5fdb-4c15-b106-e67d1fd593a2",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Spoofing",
+                  "description": "A threat actor could impersonate the scheduler to execute unauthorized tasks or modify task schedules, disrupting operations. This could lead to delays, data exposure, or unauthorized control over the process flow.",
+                  "mitigation": "Implement DNSSEC to prevent scheduler spoofing over the network.\nSet up a Certificate Authority (CA) to verify devices accessing the scheduler.\nUse IPSec or SSL/TLS to secure all scheduler communications.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 20,
+                  "score": "6"
+                },
+                {
+                  "id": "878d26cd-a7d5-4d6f-894e-2203e68c5630",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Tampering",
+                  "description": "A threat actor might alter scheduled tasks, affecting workflow timing or critical data, which can disrupt operations, cause delays, or compromise data integrity.",
+                  "mitigation": "Enable audit logs to track and detect any tampering attempts.\nUse digital signatures and hashes to protect scheduled tasks from unauthorized changes.\nApply ACLs to control who can modify scheduling settings, reducing tampering risks.\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 21,
+                  "score": "5"
+                },
+                {
+                  "id": "f7bd8fc4-81cc-40d2-a0df-f268e84995eb",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "Unauthorized access to scheduling data could expose critical process details, such as schedules and task timings, which could be used by attackers to disrupt operations or plan further attacks.",
+                  "mitigation": "Encrypt scheduling data both in transit and at rest to prevent unauthorized access.\nEnable audit logs to track access and changes to scheduling data for compliance and monitoring.\nApply role-based access controls to limit data access to authorized users only.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 22,
+                  "score": "8"
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "x": 120,
+              "y": 110
+            },
+            "size": {
+              "width": 160,
+              "height": 100
+            },
+            "attrs": {
+              "text": {
+                "text": "P4 Document \nGenerator"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 3,
+            "id": "f2da20d6-4868-4090-8d0b-84508f31f082",
+            "data": {
+              "type": "tm.Process",
+              "name": "P4 Document \nGenerator",
+              "description": "The document generator is responsible for creating and managing documents within the system. It may generate reports, summaries, or other documents based on system data.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": [
+                {
+                  "id": "67a9e554-9974-463f-9ca0-67f6d9908a93",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Spoofing",
+                  "description": "A threat actor could impersonate the document generator to create fake documents or initiate unauthorized document generation, leading to the spread of false information, access to sensitive documents, and misuse of resources.",
+                  "mitigation": "Implement PKI and CA for entity verification on document generator\nApply DNSSEC to avoid DNS spoofing if generator is network-exposed\nLimit document generation permissions by using RBAC",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 42,
+                  "score": "5"
+                },
+                {
+                  "id": "3fda7f5e-1f09-4471-8606-f43d138fbdd6",
+                  "title": "STRIDE",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Tampering",
+                  "description": "A threat actor may alter the content of generated documents, resulting in misinformation or falsified records. This compromises document integrity and could lead to legal or operational issues.",
+                  "mitigation": "Sign generated documents to ensure authenticity and detect tampering\nEnable logging and hashing to verify data integrity during document generation\nUse digital signatures or watermarks to confirm document authenticity",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 43,
+                  "score": "6"
+                },
+                {
+                  "id": "21c262d0-ab89-4397-bc2a-ba431ade789d",
+                  "title": "STRIDE",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "Sensitive information within generated documents may be unintentionally exposed due to insufficient security controls, risking privacy breaches and data leaks.",
+                  "mitigation": "Use PKI and CA to verify entities accessing the document generator\nApply DNSSEC to prevent DNS spoofing if network-accessible\nMask sensitive document content and restrict generator access to authorized users\nEncrypt sensitive data and keep logs for auditing\nRedact highly sensitive content to prevent unauthorized exposure",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 44,
+                  "score": "8"
+                },
+                {
+                  "id": "fc140f93-2f92-4c1b-b6f6-08a21f297530",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Repudiation",
+                  "description": "An employee denying involvement in a specific document generation or delivery action, creating accountability issues.",
+                  "mitigation": "Implement logging and auditing to record user actions, including timestamps and user IDs, ensuring traceability.\nUse digital signatures or cryptographic methods to authenticate document actions, making it difficult for users to deny their actions.\nEstablish policies and training on accountability to reinforce the consequences of repudiation.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 63,
+                  "score": "5"
+                },
+                {
+                  "id": "c61ef439-29a5-453d-a7f2-8a90587e7bb7",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Denial of service",
+                  "description": "A flood of document requests could overwhelm the generator, delaying document creation.",
+                  "mitigation": "Implement Throttling for document requests.\nUse Load Balancing.\nEnable DDoS Protection Tools.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 70,
+                  "score": "5"
+                },
+                {
+                  "id": "556d9f80-f6a9-4738-93b2-54b10e767ebf",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Elevation of privilege",
+                  "description": "Unauthorized access to the document generator would allow threat actors to create or alter Official documents.",
+                  "mitigation": "Enforce MFA for accessing the generator.\nApply RBAC for document management.\nConduct Regular Access Audits.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 71,
+                  "score": "7"
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "x": 630,
+              "y": 380
+            },
+            "size": {
+              "width": 120,
+              "height": 100
+            },
+            "attrs": {
+              "text": {
+                "text": "P3\nPDS"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 4,
+            "id": "f0160718-bfb7-4742-a8ae-ff1220fd9245",
+            "data": {
+              "type": "tm.Process",
+              "name": "P3\nPDS",
+              "description": "The PDS process manages sensitive personal data and is designed to ensure data privacy and security. It maintains user data confidentiality, integrity, and access control.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": [
+                {
+                  "id": "1c7bd53f-1fb6-4092-9e90-e95867574002",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Spoofing",
+                  "description": "A threat actor could impersonate a PDS (Personal Data Security) user to gain unauthorized access to sensitive data. This could lead to data theft, unauthorized modifications, or privacy breaches.",
+                  "mitigation": "\nHere's the information without colons and in a simpler format:\n\nImplement Authentication by using Kerberos or SSH keys to authenticate users and systems accessing PDS\nEncrypt Transfers with SSL or SSH to secure data transfers within PDS\n\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 38,
+                  "score": "5"
+                },
+                {
+                  "id": "0274a221-f9ca-4415-8f3b-cec28432ff11",
+                  "title": "STRIDE",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Tampering",
+                  "description": "A threat actor could alter personal data within the PDS, potentially corrupting information or changing records. This tampering could result in data integrity loss, leading to inaccurate information or poor decision-making.",
+                  "mitigation": "Ensure Data Integrity using hashing and digital signatures to detect unauthorized changes\nSet Access Control with ACLs to restrict data modification rights\nEnable Logging to monitor data modifications and detect tampering in real-time",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 39,
+                  "score": "6"
+                },
+                {
+                  "id": "7eaad713-d2a3-4244-a949-16c97a497210",
+                  "title": "STRIDE",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "Sensitive personal data within the PDS may be exposed to unauthorized users, risking privacy breaches and compliance violations. This could occur due to weak access controls, accidental exposure, or deliberate extraction by malicious actors.",
+                  "mitigation": "Encrypt Data to secure all sensitive data within PDS\nRestrict Access with role-based control to limit data exposure\nImplement DLP and Logging to prevent unauthorized sharing and log access to sensitive data",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 40,
+                  "score": "7"
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "x": -140,
+              "y": 200
+            },
+            "size": {
+              "width": 112.5,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "E1 Print \nService"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 5,
+            "id": "9d902e16-acc2-48ea-832a-611f6b69d5c7",
+            "data": {
+              "type": "tm.Actor",
+              "name": "E1 Print \nService",
+              "description": "External service that manages print jobs, receiving data from the system to create physical documents. It requires secure access to prevent unauthorized document printing.",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "providesAuthentication": false,
+              "threats": [
+                {
+                  "id": "30a4c7c1-d650-47b8-a85c-5aa0b11e093a",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Spoofing",
+                  "description": "A threat actor could impersonate the print service to intercept or redirect print jobs, capturing sensitive documents. This would grant unauthorized access to confidential information, potentially leading to further exploitation.",
+                  "mitigation": "Enable SSL/TLS and PKI to secure connections and authenticate devices with trusted certificates\nImplement Certificate Authority to verify and authorize devices accessing the print service\nEnable DNSSEC to prevent DNS spoofing for network-accessible print services\nImplement Certificate Authority (CA) to verify and authorize devices accessing the print service\n\n\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 15,
+                  "score": "6"
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "x": -140,
+              "y": 310
+            },
+            "size": {
+              "width": 112.5,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "E2 Banking"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 6,
+            "id": "465411a4-6b5b-4fa9-b8b5-3e8a0ea2e8cf",
+            "data": {
+              "type": "tm.Actor",
+              "name": "E2 Banking",
+              "description": " External banking service for nancial transactions or data exchanges related to payment processing, user accounts, or other banking functions.\n",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "providesAuthentication": false,
+              "threats": [
+                {
+                  "id": "f434fd2a-dba3-4577-96d3-084a80587330",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "A threat actor could impersonate the banking service, tricking users into sharing sensitive information such as account credentials or transaction data. This spoofing attack could lead to unauthorized access to user accounts or financial loss.",
+                  "mitigation": "Enable Multi-Factor Authentication (MFA) to add an extra layer of security for user access, combining password entry with verification via a mobile app or SMS code to prevent unauthorized access.\nUse SSL/TLS and DNSSEC to protect connections and prevent redirection to fake sites.\nApply PKI to authenticate users and devices securely.\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 17,
+                  "score": "8"
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "x": -140,
+              "y": 420
+            },
+            "size": {
+              "width": 112.5,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "E3 Email \nProvider"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 7,
+            "id": "f96cb2f1-cc32-4509-8234-52d6735e12e9",
+            "data": {
+              "type": "tm.Actor",
+              "name": "E3 Email \nProvider",
+              "description": "Email service provider used for sending system-generated emails or noti cations. It handles external communication and may relay sensitive information to users.\n",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "providesAuthentication": false,
+              "threats": [
+                {
+                  "id": "7b0deb73-61be-4c87-9fc5-940ab168d8e7",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "A threat actor could impersonate the email provider to gain unauthorized access to sensitive data, potentially resulting in data theft, unauthorized modifications, or privacy breaches",
+                  "mitigation": "Use SPF, DKIM, and DMARC to verify email authenticity.\nApply SSL/TLS to secure email access and prevent credential theft.\nUse SSH Host Keys for secure server authentication.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 18,
+                  "score": "7"
+                },
+                {
+                  "id": "9a94b118-1c3a-4f4d-99c3-dc081e222c27",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Repudiation",
+                  "description": "A threat actor could use spoofed email addresses or compromised accounts to send malicious emails while hiding their identity. They may deny involvement, claiming the emails originated elsewhere, complicating accountability and tracing.",
+                  "mitigation": "Implement comprehensive logging of all email actions, including timestamps, sender and recipient details, and email content.\nUse digital signatures for outgoing emails to authenticate the sender and ensure the integrity of the message.\nEstablish clear policies on user accountability and conduct regular training to inform users about the importance of secure practices and the consequences of repudiation.\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 60,
+                  "score": "5"
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "x": 990,
+              "y": 320
+            },
+            "size": {
+              "width": 112.5,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "E4 PDS User"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 8,
+            "id": "f6c95c61-f250-429a-ae35-79268bcac62e",
+            "data": {
+              "type": "tm.Actor",
+              "name": "E4 PDS User",
+              "description": " Represents individuals or users who interact with the Personal Data Security (PDS) system, accessing or modifying personal data according to their permissions.\n",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "providesAuthentication": false,
+              "threats": [
+                {
+                  "id": "213efcc3-6b56-40ef-b982-357eeead871a",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Spoofing",
+                  "description": "A threat actor could impersonate a PDS user to gain unauthorized access to sensitive data, potentially leading to data theft or unauthorized modifications.",
+                  "mitigation": "Enable Multi-Factor Authentication (MFA) to add an extra layer of security for user access, combining password entry with verification via a mobile app or SMS code to prevent unauthorized access.\nImplement Session Timeouts to prevent hijacking risks.\nMonitor Logins to identify and stop impersonation attempts.\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 19,
+                  "score": "5"
+                },
+                {
+                  "id": "7dc53e7a-606c-4a6b-8002-bcf69d1e11d7",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Repudiation",
+                  "description": "A PDS user could deny actions within the system, such as accessing or modifying sensitive data, creating accountability issues.\n",
+                  "mitigation": "Log User Actions to keep a record of who does what in the system.\nUse Digital Signatures to verify actions and make it hard to deny involvement.\nProvide Training on user responsibility and consequences of repudiation",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 73,
+                  "score": "5"
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "x": 605,
+              "y": 140
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "DS Archive "
+              },
+              "topLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "zIndex": 9,
+            "id": "79da5cec-1cca-41e5-b52f-585c4e6cd53c",
+            "data": {
+              "type": "tm.Store",
+              "name": "DS Archive ",
+              "description": "This is a storage area for archived data, preserving historical records that may not need frequent access. It is used for long-term storage and may contain data for compliance, analysis, or audit \npurposes.\n",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": [
+                {
+                  "id": "b25f1032-723a-4606-89f2-9fd439acc866",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Tampering",
+                  "description": "A threat actor may alter archived data, corrupting historical records and potentially leading to incorrect insights or decisions. Tampering with archived data can compromise its reliability and impact audits or regulatory compliance.",
+                  "mitigation": "Implement digital signatures and hashing to verify data integrity.\nEnable ACLs and version control to restrict modifications and maintain history.\nImplement audit logs to record access and changes.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 26,
+                  "score": "6"
+                },
+                {
+                  "id": "003f661b-482f-465a-8bb8-543c42d09b18",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Information disclosure",
+                  "description": "Unauthorized access to archived data could expose sensitive historical information, potentially resulting in data leaks or compliance violations. This threat is critical if the archived data contains personal or confidential information.",
+                  "mitigation": "Enable encryption for archived data to prevent unauthorized access.\nImplement regular access control audits to maintain updated permissions.\nEnable DLP and data masking to prevent accidental or unauthorized data disclosure.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 27,
+                  "score": "6"
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "x": 800,
+              "y": 140
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "DS2 PDS Docs"
+              },
+              "topLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "zIndex": 10,
+            "id": "269bfec3-96dd-4db7-a86e-b40bb83b2395",
+            "data": {
+              "type": "tm.Store",
+              "name": "DS2 PDS Docs",
+              "description": "Stores documents related to personal data security, such as policies, user data access logs, or compliance records.\n",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": [
+                {
+                  "id": "11dadb75-49a2-4cd3-9315-e113e5a24455",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "Unauthorized changes to PDS (Personal Data Security) documents could corrupt critical information, leading to inaccurate records. This could impact business decisions, violate data integrity policies, and affect regulatory compliance.",
+                  "mitigation": "Implement digital signatures to verify document authenticity and detect tampering.\nEnable ACLs to restrict editing permissions to trusted users.\nImplement audit trails and version control to monitor changes and allow reversion of unauthorized modifications.\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 28,
+                  "score": "7"
+                },
+                {
+                  "id": "2517a850-7a07-4d9a-9091-8ed236d5775e",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Information disclosure",
+                  "description": "PDS documents contain sensitive personal or organizational information that may be exposed without proper access controls. Unauthorized disclosure could lead to privacy breaches, reputational damage, and compliance issues.",
+                  "mitigation": "Implement encryption for PDS documents at rest and in transit to prevent unauthorized access.\nEnable DLP tools to monitor and prevent data leaks.\nRegularly review access controls to ensure only authorized personnel can access sensitive documents.\n\n\n\n\n\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 29,
+                  "score": "6"
+                }
+              ]
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF1",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "974e1548-c58b-4194-9677-f8ea33d5f9b6",
+            "labels": [
+              "DF1"
+            ],
+            "source": {
+              "cell": "e721eaf6-4e0a-40cc-bc66-b596d2710e4e"
+            },
+            "target": {
+              "cell": "9d902e16-acc2-48ea-832a-611f6b69d5c7"
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF3",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "cc978114-39d5-47a0-a038-5813db9bf4c2",
+            "labels": [
+              "DF3"
+            ],
+            "source": {
+              "cell": "465411a4-6b5b-4fa9-b8b5-3e8a0ea2e8cf"
+            },
+            "target": {
+              "x": 270,
+              "y": 430
+            },
+            "vertices": [
+              {
+                "x": 40,
+                "y": 390
+              },
+              {
+                "x": 190,
+                "y": 430
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF4",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "6d1195e6-d89a-438d-8065-bea3d9bef553",
+            "labels": [
+              "DF4"
+            ],
+            "source": {
+              "cell": "e721eaf6-4e0a-40cc-bc66-b596d2710e4e"
+            },
+            "target": {
+              "cell": "f96cb2f1-cc32-4509-8234-52d6735e12e9"
+            },
+            "vertices": [
+              {
+                "x": 230,
+                "y": 460
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF6,DF7,DF8",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "6a83c58a-c7c1-4120-ab9d-f3d294a35c10",
+            "labels": [
+              "DF6,DF7,DF8"
+            ],
+            "source": {
+              "x": 986,
+              "y": 380
+            },
+            "target": {
+              "cell": "f0160718-bfb7-4742-a8ae-ff1220fd9245"
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF9,DF10",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "a2ac4935-034d-4f5d-ba31-658032bc325c",
+            "labels": [
+              "DF9,DF10"
+            ],
+            "source": {
+              "x": 725,
+              "y": 400
+            },
+            "target": {
+              "cell": "f6c95c61-f250-429a-ae35-79268bcac62e"
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF12",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "a4a4d51a-b100-42f2-a4a1-5d0c9dafc53a",
+            "labels": [
+              "DF12"
+            ],
+            "source": {
+              "x": 605,
+              "y": 200
+            },
+            "target": {
+              "cell": "6aad014f-968d-4949-afa1-1f04bc8bef2a"
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF13",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "5d6e7956-a064-4678-bdb8-217fa418d38a",
+            "labels": [
+              "DF13"
+            ],
+            "source": {
+              "x": 445,
+              "y": 230
+            },
+            "target": {
+              "cell": "e721eaf6-4e0a-40cc-bc66-b596d2710e4e"
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF17,DF18",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "650a3566-05f1-4693-bff8-935f5985e4ca",
+            "labels": [
+              "DF17,DF18"
+            ],
+            "source": {
+              "cell": "f0160718-bfb7-4742-a8ae-ff1220fd9245"
+            },
+            "target": {
+              "cell": "e721eaf6-4e0a-40cc-bc66-b596d2710e4e"
+            },
+            "vertices": [
+              {
+                "x": 510,
+                "y": 500
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF19,DF24,DF25",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "1b4d4c5a-012c-48f3-9b2e-e14fdaff7f0a",
+            "labels": [
+              "DF19,DF24,DF25"
+            ],
+            "source": {
+              "x": 800,
+              "y": 200
+            },
+            "target": {
+              "cell": "f0160718-bfb7-4742-a8ae-ff1220fd9245"
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF21,DF22",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "8e5f70eb-07c1-4a38-bef0-9b1ec9f71f93",
+            "labels": [
+              "DF21,DF22"
+            ],
+            "source": {
+              "cell": "f0160718-bfb7-4742-a8ae-ff1220fd9245"
+            },
+            "target": {
+              "x": 610,
+              "y": 340
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF23",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "e2c25bf5-a779-48d0-9082-458ddf2222c7",
+            "labels": [
+              "DF23"
+            ],
+            "source": {
+              "x": 560,
+              "y": 330
+            },
+            "target": {
+              "cell": "f0160718-bfb7-4742-a8ae-ff1220fd9245"
+            },
+            "vertices": [
+              {
+                "x": 600,
+                "y": 390
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF26",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "6dff4e0d-4d97-4a7d-a7da-2a8bc78a28ae",
+            "labels": [
+              "DF26"
+            ],
+            "source": {
+              "x": 250,
+              "y": 150
+            },
+            "target": {
+              "cell": "6aad014f-968d-4949-afa1-1f04bc8bef2a"
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF27",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "64324308-c7d3-4775-b9e2-a6f2fa13efe0",
+            "labels": [
+              "DF27"
+            ],
+            "source": {
+              "x": 418,
+              "y": 210
+            },
+            "target": {
+              "cell": "f2da20d6-4868-4090-8d0b-84508f31f082"
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF28",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "b290c6a8-30b6-41cf-b463-14dcf9c0d6ce",
+            "labels": [
+              "DF28"
+            ],
+            "source": {
+              "cell": "e721eaf6-4e0a-40cc-bc66-b596d2710e4e"
+            },
+            "target": {
+              "cell": "f2da20d6-4868-4090-8d0b-84508f31f082"
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF29",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "8e8de878-bd29-4898-9eb6-3127a888f87f",
+            "labels": [
+              "DF29"
+            ],
+            "source": {
+              "cell": "f2da20d6-4868-4090-8d0b-84508f31f082"
+            },
+            "target": {
+              "cell": "e721eaf6-4e0a-40cc-bc66-b596d2710e4e"
+            },
+            "vertices": [
+              {
+                "x": 220,
+                "y": 320
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF11",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": [
+                {
+                  "id": "66ac9343-f839-4050-8b46-cb99ad6a1818",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Denial of service",
+                  "description": "A threat actor could target the DF11 system connection with network attacks to disrupt communication between system components, effectively halting data flow.",
+                  "mitigation": "Use strong encryption protocols to secure the connection and prevent data interception.\nMonitor network traffic for unusual activity and implement intrusion detection systems (IDS) for early detection of attacks.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 62,
+                  "score": "8"
+                }
+              ]
+            },
+            "id": "aa0534ed-de17-4322-be9a-d13459022391",
+            "labels": [
+              "DF11"
+            ],
+            "source": {
+              "cell": "6aad014f-968d-4949-afa1-1f04bc8bef2a"
+            },
+            "target": {
+              "x": 600,
+              "y": 160
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF15,DF16",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "5c95deae-4d47-4f26-b492-b27986eeaeb2",
+            "labels": [
+              "DF15,DF16"
+            ],
+            "source": {
+              "x": 370,
+              "y": 420
+            },
+            "target": {
+              "cell": "f0160718-bfb7-4742-a8ae-ff1220fd9245"
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF2",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": [
+                {
+                  "id": "0e101838-fff4-409a-9f3e-e1edfaf34f3d",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "A threat actor could intercept and alter transaction data between the Delivery process (P2) and the Banking service (E2), leading to unauthorized modifications that affect payment amounts or account details",
+                  "mitigation": "Use end-to-end encryption (such as TLS) to secure data in transit, along with digital signatures to verify data integrity at the receiving end.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 75,
+                  "score": "8"
+                }
+              ]
+            },
+            "id": "272558ad-c63c-4b6a-abc9-b1c73d914662",
+            "labels": [
+              "DF2"
+            ],
+            "source": {
+              "cell": "e721eaf6-4e0a-40cc-bc66-b596d2710e4e"
+            },
+            "target": {
+              "cell": "465411a4-6b5b-4fa9-b8b5-3e8a0ea2e8cf"
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF14",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": [
+                {
+                  "id": "89c7cf23-101e-4359-8113-518513aa61bd",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Denial of service",
+                  "description": "A threat actor could flood the communication channel between the Scheduler (P1) and Delivery (P2) with an excessive number of requests, disrupting the scheduling of deliveries and causing delays.",
+                  "mitigation": " Implement rate limiting, Web Application Firewall (WAF), and load balancing.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 76,
+                  "score": "6"
+                }
+              ]
+            },
+            "id": "4ac5388d-3add-4edf-87ed-ef8d0005fc89",
+            "labels": [
+              "DF14"
+            ],
+            "source": {
+              "x": 370,
+              "y": 400
+            },
+            "target": {
+              "cell": "79da5cec-1cca-41e5-b52f-585c4e6cd53c"
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF20",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": [
+                {
+                  "id": "404943f1-18c4-491f-ac64-cd75ab3ebfab",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "A threat actor could intercept and alter document data being transferred from the PDS (P3) to the PDS Docs (DS2), leading to inaccurate or falsified records.",
+                  "mitigation": "Implement hashing and digital signatures for integrity verification.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 77,
+                  "score": "8"
+                }
+              ]
+            },
+            "id": "f1623146-8342-4271-a272-b8a705ab3cc8",
+            "labels": [
+              "DF20"
+            ],
+            "source": {
+              "x": 725,
+              "y": 400
+            },
+            "target": {
+              "x": 880,
+              "y": 210
+            },
+            "vertices": [
+              {
+                "x": 840,
+                "y": 300
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF5",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": [
+                {
+                  "id": "8e84307f-f2b6-46c2-8966-4d157cf26f77",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Information disclosure",
+                  "description": "Sensitive data sent from the Delivery process (P2) to the Email Provider (E3) may be exposed if intercepted, potentially leaking private information.",
+                  "mitigation": "Implement TLS for secure communication and Data Loss Prevention (DLP) on the email provider.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 78,
+                  "score": "6"
+                }
+              ]
+            },
+            "id": "2956940d-3fbf-4ed3-894f-189812f1ddbc",
+            "labels": [
+              "DF5"
+            ],
+            "source": {
+              "cell": "f96cb2f1-cc32-4509-8234-52d6735e12e9"
+            },
+            "target": {
+              "cell": "e721eaf6-4e0a-40cc-bc66-b596d2710e4e"
+            },
+            "vertices": [
+              {
+                "x": 220,
+                "y": 505
+              }
+            ]
+          },
+          {
+            "position": {
+              "x": 560,
+              "y": 270
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "DS3 User Data"
+              },
+              "topLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "zIndex": 11,
+            "id": "7b9c6cf8-3a9c-4f3e-8bab-4c3cac5333e6",
+            "data": {
+              "type": "tm.Store",
+              "name": "DS3 User Data",
+              "description": "Holds sensitive user information within the system, including personal data necessary for system operations. It is critical for maintaining user privacy.\n",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": [
+                {
+                  "id": "7368ec6c-fe15-4088-80bc-ab6da9840a1e",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "A threat actor could modify user data, leading to unauthorized changes that compromise data integrity and damage user trust. Such alterations could result in inaccurate records, affecting decision-making, compliance, and overall user experience.",
+                  "mitigation": "Enable digital signatures and hashing to protect data integrity.\nImplement RBAC to limit write permissions to specific roles.\nEnable real-time logging to monitor and address any unauthorized changes.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 30,
+                  "score": "8"
+                },
+                {
+                  "id": "43ed48a1-ab25-4fc0-abfe-51a93dd611f9",
+                  "title": "STRIDE ",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "Unauthorized access to user data could expose personal information, leading to privacy violations, reputational damage, and legal repercussions. This is a critical threat, as user data often contains sensitive information, making it a prime target for attackers.",
+                  "mitigation": "Implement encryption for all user data, both in storage and during transfers.\nApply data masking and DLP to protect sensitive fields and control data sharing.\nEnable regular access audits to keep permissions updated and aligned with access needs.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 33,
+                  "score": "9"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "title": "New LINDDUN diagram",
+        "diagramType": "LINDDUN",
+        "placeholder": "New LINDDUN diagram description",
+        "thumbnail": "./public/content/images/thumbnail.linddun.jpg",
+        "version": "2.2.0",
+        "cells": [
+          {
+            "position": {
+              "x": 255,
+              "y": 60.00000000000006
+            },
+            "size": {
+              "width": 110,
+              "height": 100
+            },
+            "attrs": {
+              "text": {
+                "text": "P1\nScheduler"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 1,
+            "id": "ca29205d-3abc-487a-9c84-63649432e8f8",
+            "data": {
+              "type": "tm.Process",
+              "name": "P1\nScheduler",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": 250,
+              "y": 315
+            },
+            "size": {
+              "width": 120,
+              "height": 100
+            },
+            "attrs": {
+              "text": {
+                "text": "P2\nDelivery"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 2,
+            "id": "5a598e2b-d888-43a5-9b46-d7132a30ef9a",
+            "data": {
+              "type": "tm.Process",
+              "name": "P2\nDelivery",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": []
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF13",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": [
+                {
+                  "id": "d07a2792-2b6e-4372-9ba9-533fb09e7799",
+                  "title": "DF13,Detectability",
+                  "status": "Open",
+                  "severity": "Low",
+                  "type": "Detectability",
+                  "description": "1. At the source (P1 - Scheduler): P1 may unintentionally reveal that a user is part of the scheduling system through observed communications (D.1). For example, simply being part of the system and communicating with it could reveal a user’s involvement, which might be sensitive depending on the context.\n 2. In the data flow itself (DF13): The flow of scheduling data could expose unintended side effects, such as logs or traces of communication that could be used to infer the actions of a user (D.2). This could reveal when a user interacts with the system or schedules specific actions.\n 3. At the destination (P2 - Delivery): System responses from P2 might inadvertently leak information, such as by confirming a user’s account exists or providing specific error messages (D.3). These responses can give an observer clues about the user’s identity or activities.\n",
+                  "mitigation": "1. At the source (P1 - Scheduler):\n • Obfuscate User Involvement (D.1): To mitigate the risk of revealing user participation through observed communications, implement encryption protocols for all communication with the scheduling system. Additionally, use anonymous identifiers to prevent linking specific users to the system. Ensure that communications are indistinguishable from general network traffic to reduce the chance of detection.\n 2. In the data flow (DF13):\n • Minimize Communication Traces (D.2): To prevent detection through logs or side effects, limit the amount of logging related to user actions and ensure logs are anonymized. Clear temporary files or residual data that could reveal user interactions. Use secure communication protocols like TLS to obscure user activity from external observers.\n 3. At the destination (P2 - Delivery):\n • Reduce Information Leaked in System Responses (D.3): Avoid providing overly detailed error messages or responses that could reveal sensitive information, such as confirming user existence or specific actions. Implement generic error handling (e.g., “Invalid request”) that does not provide clues about the user or system status. Additionally, use rate-limiting to prevent attackers from repeatedly querying the system for informa",
+                  "modelType": "LINDDUN",
+                  "new": false,
+                  "number": 9,
+                  "score": "3"
+                }
+              ]
+            },
+            "id": "e09de867-2677-4c49-aab9-0f3a389b64c4",
+            "labels": [
+              "DF13"
+            ],
+            "source": {
+              "cell": "ca29205d-3abc-487a-9c84-63649432e8f8"
+            },
+            "target": {
+              "cell": "5a598e2b-d888-43a5-9b46-d7132a30ef9a"
+            },
+            "vertices": [
+              {
+                "x": 315.5,
+                "y": 280
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "New LINDDUN diagram",
+        "diagramType": "LINDDUN",
+        "placeholder": "New LINDDUN diagram description",
+        "thumbnail": "./public/content/images/thumbnail.linddun.jpg",
+        "version": "2.2.0",
+        "cells": [
+          {
+            "position": {
+              "x": 430,
+              "y": 235
+            },
+            "size": {
+              "width": 110,
+              "height": 120
+            },
+            "attrs": {
+              "text": {
+                "text": "P2\nDelivery"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 1,
+            "id": "a4c0ba3f-10bf-41cb-9542-0fe328310be9",
+            "data": {
+              "type": "tm.Process",
+              "name": "P2\nDelivery",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": []
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF5",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": [
+                {
+                  "id": "5846a9dc-87fd-4014-95d8-895335dd125d",
+                  "title": "DF5,Disclosure of information",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Disclosure of information",
+                  "description": "1. At the source (E3 - Email Provider), there is a risk that user data may be shared with unnecessary third parties, which can lead to excessive exposure (DD.4.1.1). This means that data, which should only be used for email processing, might be accessible to more parties than required, increasing the potential for unauthorized use.\n 2. In the data flow itself (DF5), there is a concern that it could carry unnecessary metadata such as timestamps or sender/recipient details, which are not essential for the delivery process (DD.1.3). This extra information may be exposed during transmission, potentially putting users’ sensitive information at risk.\n 3. At the destination (P2 - Delivery), data may be retained for longer than necessary, violating data retention principles and increasing the likelihood of unauthorized access (DD.3.4). Without clear policies for data deletion after its use, stored information becomes vulnerable to attacks or misuse over time.\n",
+                  "mitigation": "1. At the source (E3 - Email Provider): To prevent unnecessary data sharing with third parties, implement strict access control policies. Only essential parties should have access to user data. Regular audits and data-sharing reviews can help ensure that data is shared only when absolutely necessary, reducing the risk of excessive exposure.\n 2. In the data flow (DF5): To mitigate the risk of metadata exposure, remove or anonymize unnecessary metadata (such as timestamps or sender/recipient details) from the data flow. Additionally, ensure that any sensitive data that must be transmitted is encrypted, both in transit and at rest, to prevent unauthorized interception.\n 3. At the destination (P2 - Delivery): Enforce data retention policies that limit how long data is stored. Implement automated mechanisms that securely delete or archive data once it is no longer needed for processing. Regularly review data retention practices to ensure compliance and prevent the accumulation of unnecessary data, reducing the risk of unauthorized access.\n",
+                  "modelType": "LINDDUN",
+                  "new": false,
+                  "number": 49,
+                  "score": "5"
+                }
+              ]
+            },
+            "id": "85442978-20d2-4b12-a651-2f3a3f7da2a9",
+            "labels": [
+              "DF5"
+            ],
+            "source": {
+              "x": 180,
+              "y": 300
+            },
+            "target": {
+              "cell": "a4c0ba3f-10bf-41cb-9542-0fe328310be9"
+            },
+            "vertices": [
+              {
+                "x": 310,
+                "y": 300
+              }
+            ]
+          },
+          {
+            "position": {
+              "x": 82.99999999999989,
+              "y": 245
+            },
+            "size": {
+              "width": 100,
+              "height": 110
+            },
+            "attrs": {
+              "text": {
+                "text": "E3 Email\nProvider"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 11,
+            "id": "174dadba-5359-4acc-91f6-fe61161fa5f5",
+            "data": {
+              "type": "tm.Process",
+              "name": "E3 Email\nProvider",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": []
+            }
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "New LINDDUN diagram",
+        "diagramType": "LINDDUN",
+        "placeholder": "New LINDDUN diagram description",
+        "thumbnail": "./public/content/images/thumbnail.linddun.jpg",
+        "version": "2.2.0",
+        "cells": [
+          {
+            "position": {
+              "x": 240,
+              "y": 230
+            },
+            "size": {
+              "width": 110,
+              "height": 100
+            },
+            "attrs": {
+              "text": {
+                "text": "P3\nPDS"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 1,
+            "id": "acf996a7-e8ef-4aad-921a-3f5f89a9af02",
+            "data": {
+              "type": "tm.Process",
+              "name": "P3\nPDS",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": []
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF8",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": [
+                {
+                  "id": "8546fddf-ae6d-4743-ba93-15bbf2fa3f64",
+                  "title": "DF8, Non-Compliance",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Non-compliance",
+                  "description": "In analyzing DF8, several non-compliance risks have been identified. Starting with the source, E4 may process more personal data than necessary, which breaches the data minimization principle by including details that aren’t essential for document processing (Nc.1.1.2). Moving to the data flow itself, DF8 could retain data in transit longer than required, potentially violating storage limitation principles if no clear policy is in place for timely data deletion (Nc.1.1.4). At the destination, P3 (Document Service) may lack well-defined data management policies, including clear roles and responsibilities for handling personal data, leading to improper data management practices (Nc.2).",
+                  "mitigation": "1. Enforce Data Minimization Policies (E4 - Source): Review and limit the types of data processed by E4 to only what is necessary for document processing. Implement strict data collection guidelines and routinely audit data usage to ensure compliance with the data minimization principle.\n 2. Establish Data Retention Policies (DF8 - Data Flow): Define clear policies for data retention and timely deletion in transit. Implement automated mechanisms to delete or archive data after a specified period, ensuring data is not held longer than needed.\n 3. Define Data Management Roles and Responsibilities (P3 - Destination): Develop and document data management policies for P3 (Document Service). Assign specific roles and responsibilities for handling and managing personal data, ensuring accountability and adherence to best practices in data protection.",
+                  "modelType": "LINDDUN",
+                  "new": false,
+                  "number": 56,
+                  "score": ""
+                }
+              ]
+            },
+            "id": "db5f7c20-0b83-4ca3-b7fa-76c3fbf544cf",
+            "source": {
+              "cell": "ba7cc5a6-f763-4946-b020-991456c33f74"
+            },
+            "target": {
+              "cell": "acf996a7-e8ef-4aad-921a-3f5f89a9af02"
+            },
+            "labels": [
+              "DF8"
+            ]
+          },
+          {
+            "position": {
+              "x": 604,
+              "y": 170
+            },
+            "size": {
+              "width": 112.5,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "E4 PDS User"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 11,
+            "id": "ba7cc5a6-f763-4946-b020-991456c33f74",
+            "data": {
+              "type": "tm.Actor",
+              "name": "E4 PDS User",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "providesAuthentication": false,
+              "threats": []
+            }
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "New LINDDUN diagram",
+        "diagramType": "LINDDUN",
+        "placeholder": "New LINDDUN diagram description",
+        "thumbnail": "./public/content/images/thumbnail.linddun.jpg",
+        "version": "2.2.0",
+        "cells": [
+          {
+            "position": {
+              "x": 300,
+              "y": 120.00000000000006
+            },
+            "size": {
+              "width": 90,
+              "height": 90
+            },
+            "attrs": {
+              "text": {
+                "text": "P1\nScheduler"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 1,
+            "id": "543c1f57-5549-40a6-b317-6f44be11c767",
+            "data": {
+              "type": "tm.Process",
+              "name": "P1\nScheduler",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": []
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF11",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": [
+                {
+                  "id": "348489cf-c68c-46c7-97e7-22dd9f911a37",
+                  "title": "DF11 Non-repudiation",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Non-repudiation",
+                  "description": "here the document inside the schedular have some attribute that specify if the \ndocument should be sent to delivery based on the time, date or to be stored in the \narchive, also maybe this document is sensitive and we can’t send it now so we store \nit and wait tell the right time, or user appear, then the archive the documents are \nstored based on sensitivity. \nSource (P1 Scheduler): \n• here the attacker can access the scheduler and reschedule things, and then he can \ndeny what he did. This compromises the attribution of actions (Nr.2). \nData Flow (DF11): \n• If the data flow is not encrypted then the attacker can observe the tasks and request \nsend between the schedular and the archive (Nr.1.1, Nr.1.3). \nDestination (DS1 Archive):  \n• the attacker(employ from inside the organization) can manipulate the archive logs \nwith will result in Nr.1.1, Nr.1.3 and simply he can deny that he did this",
+                  "mitigation": "Use robust logging to make sure no one can alter the data, even if the attacker has \nlinked info about something, altering will be difficult to do, also to reduce the risk at  \ntransmission use digital signatures to ensure the integrity of the metadata during \ntransmission and storage. ",
+                  "modelType": "LINDDUN",
+                  "new": false,
+                  "number": 57,
+                  "score": "3"
+                }
+              ]
+            },
+            "id": "2cc96f1b-ef32-4e40-aa4e-a63395bbaf34",
+            "labels": [
+              "DF11"
+            ],
+            "source": {
+              "cell": "543c1f57-5549-40a6-b317-6f44be11c767"
+            },
+            "target": {
+              "cell": "85a5f6bf-d59e-4731-a030-697a4bb2a25d"
+            }
+          },
+          {
+            "position": {
+              "x": 534,
+              "y": 135.00000000000006
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "DS1 archive"
+              },
+              "topLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "zIndex": 11,
+            "id": "85a5f6bf-d59e-4731-a030-697a4bb2a25d",
+            "data": {
+              "type": "tm.Store",
+              "name": "DS1 archive",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": []
+            }
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "New LINDDUN diagram",
+        "diagramType": "LINDDUN",
+        "placeholder": "New LINDDUN diagram description",
+        "thumbnail": "./public/content/images/thumbnail.linddun.jpg",
+        "version": "2.2.0",
+        "cells": [
+          {
+            "position": {
+              "x": 420,
+              "y": 260
+            },
+            "size": {
+              "width": 90,
+              "height": 90
+            },
+            "attrs": {
+              "text": {
+                "text": "P2\nDelivery"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 1,
+            "id": "6bf6dcf1-fb22-42f6-a863-235d4e45569b",
+            "data": {
+              "type": "tm.Process",
+              "name": "P2\nDelivery",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": []
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF3",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": [
+                {
+                  "id": "1a6dbe14-6dd1-42b1-a244-8cde735d1ace",
+                  "title": "DF3, Linkability",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Linkability",
+                  "description": "After the bank sends the invoices, the delivery process will receive it and then the \nbank will return a delivery status contains the id of the particular document, this \nallow the delivery to keep track of the current document. \nSource (E2 Banking): \n• Linking Threat: here we could consider The document ID itself as the threat, if not \nproperly anonymized or handled, could act as a unique identifier L.1.1 (Unique \nidentifier):linking the invoice to a specific user. \nData Flow (DF3): \n• Linking Threat: L.1.1 (Unique identifier): The document ID in transit is vulnerable to \ninterception, potentially revealing a link between the invoice and the user. This data\ncentric threat relies on the ID being transmitted. L.2.1.1 (Quasi-identifier combining \ndata of a single individual): The combination of document ID and the delivery status \n(e.g., timestamps, success/failure indicators) could be used as a quasi-identifier. \nDestination (P2 Delivery): \n• Linking Threat: if the delivery service stores this information insecurely. L.2.1.1 \n(Quasi-identifier combining data of a single individual): The document ID, combined \nwith other data held by the delivery service (e.g., delivery address, delivery method), \ncould create a quasi-identifier. L.2.2.1 (Profiling an individual): Repeated use of the \nservice by the same user, tracked via the document ID, could lead to profiling based \non delivery frequency or document types. The action-based threat depends on how \nP2 uses the received data.",
+                  "mitigation": "Try applying noise on the data to make it harder to be identified, and use strict ACL \nbased on the least privileged principal, additionally you can conduct regular audit to \ncheck on the system. \n",
+                  "modelType": "LINDDUN",
+                  "new": false,
+                  "number": 58,
+                  "score": "1"
+                }
+              ]
+            },
+            "id": "1907aa67-70e4-4e9d-9ad8-ca66a4de45f1",
+            "labels": [
+              "DF3"
+            ],
+            "source": {
+              "x": 170,
+              "y": 240
+            },
+            "target": {
+              "cell": "6bf6dcf1-fb22-42f6-a863-235d4e45569b"
+            }
+          },
+          {
+            "position": {
+              "x": 60,
+              "y": 200
+            },
+            "size": {
+              "width": 112.5,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "E2 Banking"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 11,
+            "id": "445ac0fa-254d-4449-9b85-14e07f9be200",
+            "data": {
+              "type": "tm.Actor",
+              "name": "E2 Banking",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "providesAuthentication": false,
+              "threats": []
+            }
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "New LINDDUN diagram",
+        "diagramType": "LINDDUN",
+        "placeholder": "New LINDDUN diagram description",
+        "thumbnail": "./public/content/images/thumbnail.linddun.jpg",
+        "version": "2.2.0",
+        "cells": [
+          {
+            "position": {
+              "x": 650,
+              "y": 300
+            },
+            "size": {
+              "width": 80,
+              "height": 80
+            },
+            "attrs": {
+              "text": {
+                "text": "P3\nPDS"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 1,
+            "id": "8428ea47-93bd-4c9b-84eb-948283bed5b3",
+            "data": {
+              "type": "tm.Process",
+              "name": "P3\nPDS",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": []
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "DF20",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": [
+                {
+                  "id": "80251c2b-6627-4415-b50d-d653ceb80b39",
+                  "title": "DF20,Identifiability",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Identifiability",
+                  "description": " this flow begin with the user requesting a document, then the  p3 process make sure \nthe user is authenticated, if he is then p3 will request DS2 data store to check the \ndocument. \nSource (P3 PDS): \n• The P3 PDS processes data that is directly can identify users like there ID I.1.1 \n(Processing of identified data), not just that but if the loges combined with the ID \nthen this is a I.2.1.2 (Quasi-identifier). \nData Flow (P3 PDS to DS2 PDS Docs): \n• If the data flow path is nit encrypted then user ID may be exposed and this lead us to \nI.1.1 (Processing of identified data), also the meta data associated with the \ndocument can be corrupted reviling information about the user I.1.2 (Identified \ninformation in metadata). \nDestination (DS2 PDS Docs):  \n• The document stored can contain information that  directly reveal user identity I.2.2 \n(Revealing attributes),   ",
+                  "mitigation": "Make sure to use strong authentication, and use encryption to secure the \ncommunications between the proccess and the data store,",
+                  "modelType": "LINDDUN",
+                  "new": false,
+                  "number": 59,
+                  "score": ""
+                }
+              ]
+            },
+            "id": "e53629b3-a724-4105-947a-fda49ed3f54e",
+            "labels": [
+              "DF20"
+            ],
+            "source": {
+              "cell": "8428ea47-93bd-4c9b-84eb-948283bed5b3"
+            },
+            "target": {
+              "cell": "044120b7-a1d3-474a-adfd-6d19d38eba0d"
+            }
+          },
+          {
+            "position": {
+              "x": 630,
+              "y": 124
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "DS2 PDS Docs"
+              },
+              "topLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "zIndex": 11,
+            "id": "044120b7-a1d3-474a-adfd-6d19d38eba0d",
+            "data": {
+              "type": "tm.Store",
+              "name": "DS2 PDS Docs",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": []
+            }
+          }
+        ]
+      }
+    ],
+    "diagramTop": 7,
+    "reviewer": "",
+    "threatTop": 78
+  }
+}
